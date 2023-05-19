@@ -41,7 +41,6 @@
 
     $park = isset($_GET['park']);
     $voto = isset($_GET['voto']);
-    $nessunRisultato = false;
 
     if (($park && $_GET['park']) && (($voto && $_GET['voto'])) ){
         $hotels_filtered = [];
@@ -67,7 +66,7 @@
             }
         }
         $hotels = $hotels_filtered;
-    }
+    };
 ?>
 
 <!DOCTYPE html>
@@ -113,7 +112,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <?php 
+                    <?php
                         foreach($hotels as $hotel){
                             echo "<tr>
                               <th scope='row'>".$hotel['name']."</th>
