@@ -41,26 +41,31 @@
 
     $park = isset($_GET['park']);
     $voto = isset($_GET['voto']);
+    $nessunRisultato = false;
 
-     if ($park && $_GET['park']){
-         $hotels_filtered = [];
-         foreach($hotels as $hotel){
-             if ($hotel['parking']) {
-                 $hotels_filtered[] = $hotel;
-             }
-         }
-
-         $hotels = $hotels_filtered;
-     };
-
-    if ($voto && $_GET['voto']){
+    if (($park && $_GET['park']) && (($voto && $_GET['voto'])) ){
+        $hotels_filtered = [];
+        foreach($hotels as $hotel){
+            if ($hotel['parking'] && $hotel['vote'] >= $_GET['voto']) {
+                $hotels_filtered[] = $hotel;
+            }
+        }
+        $hotels = $hotels_filtered;
+    }else if ($park && $_GET['park']){
+        $hotels_filtered = [];
+        foreach($hotels as $hotel){
+            if ($hotel['parking']) {
+                $hotels_filtered[] = $hotel;
+            }
+        }
+        $hotels = $hotels_filtered;
+    }else if ($voto && $_GET['voto']){
         $hotels_filtered = [];
         foreach($hotels as $hotel){
             if ($hotel['vote'] >= $_GET['voto']) {
                 $hotels_filtered[] = $hotel;
             }
         }
-
         $hotels = $hotels_filtered;
     }
 ?>
@@ -108,9 +113,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <?php
+                    <?php 
                         foreach($hotels as $hotel){
-
                             echo "<tr>
                               <th scope='row'>".$hotel['name']."</th>
                               <td>".$hotel['description']."</td>
