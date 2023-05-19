@@ -38,6 +38,19 @@
         ],
 
     ];
+
+    $park = isset($_GET['park']);
+
+    if ($park && $_GET['park']){
+        $hotels_filtered = [];
+        foreach($hotels as $hotel){
+            if ($hotel['parking']) {
+                $hotels_filtered[] = $hotel;
+            }
+        }
+
+        $hotels = $hotels_filtered;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +63,19 @@
     <title>PHP-Hotels</title>
 </head>
 <body>
+    <div class="container">
+        <form  method="GET" action="index.php">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="true" name="park">
+                <label class="form-check-label" for="park">
+                  con parcheggio?
+                </label>
+            </div>
+
+            <button type="submit"> vai!</button>
+        </form>
+
+    </div>
     <div class="container">
         <div class="card">
             <table class="table">
@@ -65,6 +91,7 @@
                 <tbody>
                     <?php
                         foreach($hotels as $hotel){
+
                             echo "<tr>
                               <th scope='row'>".$hotel['name']."</th>
                               <td>".$hotel['description']."</td>
