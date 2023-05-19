@@ -40,11 +40,23 @@
     ];
 
     $park = isset($_GET['park']);
+    $voto = isset($_GET['voto']);
 
-    if ($park && $_GET['park']){
+     if ($park && $_GET['park']){
+         $hotels_filtered = [];
+         foreach($hotels as $hotel){
+             if ($hotel['parking']) {
+                 $hotels_filtered[] = $hotel;
+             }
+         }
+
+         $hotels = $hotels_filtered;
+     };
+
+    if ($voto && $_GET['voto']){
         $hotels_filtered = [];
         foreach($hotels as $hotel){
-            if ($hotel['parking']) {
+            if ($hotel['vote'] >= $_GET['voto']) {
                 $hotels_filtered[] = $hotel;
             }
         }
@@ -71,7 +83,14 @@
                   con parcheggio?
                 </label>
             </div>
-
+            <select class="form-select w-25" aria-label="voto" name="voto">
+                <option disabled selected>stelle minime</option>
+                <option value="1">&#9733;</option>
+                <option value="2">&#9733;&#9733;</option>
+                <option value="3">&#9733;&#9733;&#9733;</option>
+                <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+            </select>
             <button type="submit"> vai!</button>
         </form>
 
